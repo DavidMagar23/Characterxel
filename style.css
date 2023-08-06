@@ -27,6 +27,16 @@ li {
     list-style: none;
 }
 
+button {
+    cursor: pointer;
+}
+
+/* HTML */
+html {
+    min-height: 100vh;
+    position: relative;
+}
+
 /* Body */
 body {
     font-size: 16px;
@@ -47,6 +57,57 @@ body {
 .header ul {
     display: flex;
     gap: 2rem;
+}
+
+.logoText {
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Main */
+.character-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 2rem 3rem 3.5rem;
+    gap: 1rem;
+}
+
+.character {
+    padding: 1rem;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    gap: 0.5rem;
+    background-image: url(img/skyland.jpg);
+    background-size: cover;
+    text-shadow: 0px 4px 4px #fff;
+    font-weight: bold;
+}
+
+.character > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.saved-character-image {
+    cursor:grab;
+    outline: 6px solid var(--modal-color1);
+    border-radius: 4px;
+    margin: 1rem auto 1.5rem;
+    width: 60px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-image: url(img/Character\ Customizations.png);
+    background-position: -36px -36px;
+    animation-name: circle;
+    box-shadow: 0px 12px 12px black;
+}
+
+.saved-character-image:hover {
+    animation-name: circle;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
 }
 
 /* Footer */
@@ -71,11 +132,18 @@ body {
     transform: translate(-50%, -50%);
     background-image: url(img/skyland.jpg);
     background-size: cover;
+
+    opacity: 0;
+    visibility: hidden;
 }
 
 .modal h1,
 .modal .swipe {
-    color: var(--modal-color1)
+    color: var(--modal-color1);
+}
+
+.modal-village-text {
+    pointer-events: none;
 }
 
 .modal form {
@@ -139,11 +207,40 @@ body {
     background-image: url(img/Character\ Customizations.png);
     background-position: -36px -36px;
     animation-name: circle;
+    box-shadow: 0px 12px 12px black;
 }
 
 .img-contain:hover {
+    animation-name: circle;
     animation-duration: 1s;
     animation-iteration-count: infinite;
+}
+
+.img-swipe {
+    animation-name: circle-swipe;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+}
+
+.make-character-button {
+    font-family: inherit;
+    border: none;
+    border-radius: 4px;
+    margin: auto;
+    padding: 0.25rem 1rem;
+    color: var(--modal-color1);
+    background: linear-gradient(transparent 60%, #ffffffe8);
+    box-shadow: 0px 10px 10px black;
+    transition: 200ms ease-in-out;
+}
+
+.make-character-button:hover {
+    transform: scale(1.25);
+}
+
+.character-button-text {
+    font-size: 2rem;
+    margin: 0 0.25rem;
 }
 
 @keyframes circle {
@@ -155,6 +252,15 @@ body {
     }
 }
 
+@keyframes circle-swipe {
+    from {
+        rotate: 0deg;
+    }
+    to {
+        rotate: 360deg;
+    }
+}
+
 .overlay {
     position: absolute;
     top: 0;
@@ -162,13 +268,18 @@ body {
     left: 0;
     right: 0;
     background-color: var(--color1-trans);
+
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
 }
 
+/* Modal 2 */
 .modal2 {
     width: 80%;
     height: 80%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     text-align: center;
     position: absolute;
     top: 50%;
@@ -177,10 +288,13 @@ body {
     transition: 200ms ease-out;
     cursor: pointer;
     opacity: 0;
+    visibility:hidden;
 }
 
 .active {
+    visibility: visible;
     opacity: 1;
+    transition: 200ms ease-in-out;
 }
 
 .skyland {
@@ -189,7 +303,7 @@ body {
 }
 
 .night-claw {
-    background-image: url(img/Night\ Claw.png);
+    background-image: url(img/nightclaw.png);
     background-size: cover;
     color: #fff;
 }
@@ -200,10 +314,33 @@ body {
     color: #fff;
 }
 
+.space-wrap {
+    background-image: url(img/spacewrap.jpg);
+    background-size: cover;
+    color: #fff;
+}
+
+.dawn-light {
+    background-image: url(img/dawnlight.png);
+    background-size: cover;
+    color: #fff;
+}
+
+.dark-wood {
+    background-image: url(img/darkwood.png);
+    background-size: cover;
+}
+
 /* Interface and misc / extras */
 
 
 /* Media queries */
+@media screen and (max-width: 800px) {
+    .character-container {
+        grid-template-columns: repeat(2, 1fr)
+    };
+}
+
 @media screen and (max-width: 400px) {
     body {
         font-size: 8px;
@@ -212,4 +349,26 @@ body {
     .swipe {
         font-size: 2rem;
     }
+
+    .modal {
+        padding: 1rem 1.5rem;
+    }
+
+    .modal2 {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    
+    .make-character-button {
+        padding: 0.15rem 0.8rem;
+    }
+    
+    .character-button-text {
+        padding: 0;
+        font-size: 1.5rem;
+        margin: 0 0.1rem;
+    }
+
+    .character-container {
+        grid-template-columns: repeat(1, 1fr)
+    };
 }
